@@ -186,24 +186,12 @@
       }
       return object;
     }
-    window.onerror = function(msg, url, lineNo, columnNo, error) 
-    {
-      let message = 
-      [
-       'Message: ' + msg,
-       'URL: ' + url,
-       'Line: ' + lineNo,
-       'Column: ' + columnNo,
-       'Error: ' + error
-      ];
-      console.error(message);
-      return false;
-    }
 
     try
     {
       let object = customError('{Field 1": 25}');
     }
+
     catch(error)
     {
       if(error instanceof SomeError)
@@ -220,10 +208,12 @@
         throw error;
       }
     }
+
     try
     {
       JSON.parse('{N/A}')
     }
+    
     catch(error)
     {
       console.error(error.name);
@@ -231,6 +221,20 @@
     finally
     {
       console.log("final clause reached");
+    }
+
+    window.onerror = function(msg, url, lineNo, columnNo, error) 
+    {
+      let message = 
+      [
+       'Message: ' + msg,
+       'URL: ' + url,
+       'Line: ' + lineNo,
+       'Column: ' + columnNo,
+       'Error: ' + error
+      ];
+      console.error(message);
+      return false;
     }
   </script>
 </body>

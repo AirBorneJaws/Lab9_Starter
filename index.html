@@ -87,6 +87,16 @@
     </section>
   </main>
 
+<script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+<script>
+  window.TrackJS && TrackJS.install({ 
+    token: "ec4be13d0463453592eff42823951136"
+    // for more configuration options, see https://docs.trackjs.com
+  });
+  TrackJS.track('Testing TrackJS!');
+                        
+</script>
+                        
   <script>
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
@@ -147,7 +157,7 @@
     });
     errorBtns[10].addEventListener('click',() =>
     {
-     console.table([{button:0,functionality:'log'},{button:1, functionality:'error'},{button:2,functionality:'count'}]);
+     console.table([{button:0,functionality:'Console Log'},{button:1, functionality:'Console Error'},{button:2,functionality:'Console Count'}]);
     });
     errorBtns[11].addEventListener('click',() =>
     {
@@ -168,6 +178,47 @@
       globalError();
     });
 
+    function customError(json)
+    {
+      let object = JSON.parse(json);
+      if (!object.Field2)
+      {
+        throw new SomeError("No field: Field2");
+      }
+      return object;
+    }
+    try
+    {
+      let object = customError('{Field 1": 25}');
+    }
+    catch(error)
+    {
+      if(error instanceof SomeError)
+      {
+        console.error("Some Error: "+error.message);
+      }
+      else if(error instanceof SyntaxError)
+      {
+        console.error("Syntax Error: "+error.message);
+
+      }
+      else
+      {
+        throw error;
+      }
+    }
+    try
+    {
+      JSON.parse('{N/A}')
+    }
+    catch(error)
+    {
+      console.error(error.name);
+    }
+    finally
+    {
+      console.log("final clause reached");
+    }
   </script>
 </body>
 

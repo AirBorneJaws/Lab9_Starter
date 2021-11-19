@@ -93,8 +93,7 @@
     token: "ec4be13d0463453592eff42823951136"
     // for more configuration options, see https://docs.trackjs.com
   });
-  TrackJS.track('Testing TrackJS!');
-                        
+  TrackJS.track('Testing TrackJS!');                    
 </script>
                         
   <script>
@@ -187,6 +186,20 @@
       }
       return object;
     }
+    window.onerror = function(msg, url, lineNo, columnNo, error) 
+    {
+      let message = 
+      [
+       'Message: ' + msg,
+       'URL: ' + url,
+       'Line: ' + lineNo,
+       'Column: ' + columnNo,
+       'Error: ' + error
+      ];
+      console.error(message);
+      return false;
+    }
+
     try
     {
       let object = customError('{Field 1": 25}');
